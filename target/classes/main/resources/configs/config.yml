@@ -1,0 +1,61 @@
+parameters:
+      dataServers:
+            [
+                  {
+                        name: "cont",
+                        class: "Data.DataServer.Servers.ContDataServer",
+                        title: "Cont",
+                        url: "https://cont.ite-ng.ru"
+                  },
+                  {
+                        name: "testcont",
+                        class: "Data.DataServer.Servers.ContDataServer",
+                        title: "Cont.Test",
+                        url: "https://estcont.ite-ng.ru"
+                  },
+                  {
+                        name: "debugcont",
+                        class: "Data.DataServer.Servers.ContDataServer",
+                        title: "Cont.debug",
+                        url: "https://debugcont.ite-ng.ru"
+                  },
+            ]
+      dataSources:
+            [
+                {
+                    #наименование конкретного сервера опционально - без него конфиг будет применен ко всем серверам указанного класса
+                    #serverName: "cont",
+                    #класс сервера опционален - без него конфиг будет применен к серверу c указанным наименованием
+                    serverClass: "Data.DataServer.Servers.ContDataServer",
+                    title: "Бюджет",
+                    modelUrl: "budget",
+                    dataUrl: "",
+                    optionsUrl: "",
+                    method: "POST",
+
+                },
+                {
+                    #наименование конкретного сервера опционально - без него конфиг будет применен ко всем серверам указанного класса
+                    #serverName: "cont",
+                    #класс сервера опционален - без него конфиг будет применен к серверу c указанным наименованием
+                    serverClass: "Data.DataServer.Servers.ContDataServer",
+                    title: "Реестр смет",
+                    modelUrl: "estimate",
+                    dataUrl: "",
+                    optionsUrl: "",
+                    method: "POST",
+
+                },
+                {
+                    #наименование конкретного сервера опционально - без него конфиг будет применен ко всем серверам указанного класса
+                    #serverName: "cont",
+                    #класс сервера опционален - без него конфиг будет применен к серверу c указанным наименованием
+                    serverClass: "Data.DataServer.Servers.ContDataServer",
+                    title: "Выполнение заказчика",
+                    modelUrl: "bdr_customer",
+                    dataUrl: "",
+                    optionsUrl: "",
+                    method: "POST",
+
+                },
+            ]
