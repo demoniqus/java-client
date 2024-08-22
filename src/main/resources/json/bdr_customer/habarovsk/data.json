@@ -1,0 +1,66 @@
+{
+  "rows": [
+    {
+      "id": 0,
+      "class": "",
+      "attrs": {
+        "type": "root",
+        "entity": 0,
+        "entityClass": "ReestrBundle\\Reestr\\RootEntity"
+      },
+      "cell": {
+        "entityClass": "ReestrBundle\\Reestr\\RootEntity",
+        "entity": 0,
+        "id": 0,
+        "item.id": "Итого",
+        "item.ks3": "",
+        "item.date": "",
+        "item.number": "",
+        "item.sumWoNds": 0,
+        "item.sumWithNds": 0,
+        "item.activity": "",
+        "item.contract": "",
+        "contract.project": "",
+        "item.stageName": "",
+        "item.estimateName": null,
+        "item.stageNumber": "",
+        "item.equipmentSum": 0,
+        "item.serviceSum": 0,
+        "item.materialSum": 0,
+        "item.bcEquipmentSum": 0,
+        "item.bcServiceSum": 0,
+        "item.bcMaterialSum": 0,
+        "item.bcTotalSum": 0,
+        "item.lastComment": null,
+        "tree": "",
+        "level": 0,
+        "lft": 1,
+        "rgt": 2,
+        "isLeaf": true,
+        "expanded": false,
+        "loaded": true
+      }
+    }
+  ],
+  "reestrSettings": {},
+  "page": 0,
+  "total": 0,
+  "records": 0,
+  "originalFormState": {
+    "ProjectContractType": {
+      "project": "26",
+      "ContractType": {
+        "srcContract": "1232"
+      }
+    },
+    "estimate": "%RESET_FILTER%",
+    "reestr_type": "bdr_customer_in_distribution_item",
+    "dateFrom": "",
+    "dateTo": "",
+    "_token": "WbHsUOpjkowm7H6CUyJJBZoIyGa8RSWb2KonJeztNBk"
+  },
+  "userdata": [],
+  "sums": [],
+  "row": 1,
+  "reestrEntity": null
+}

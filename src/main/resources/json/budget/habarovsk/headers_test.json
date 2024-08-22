@@ -1,0 +1,344 @@
+{
+  "fields": {
+    "incomeStage.activity": {
+      "name": "Классификатор",
+      "search": true,
+      "width": 50,
+      "sortType": "",
+      "sortfunc": "",
+      "classColumn": "assignDataClass ",
+      "urlRow": "",
+      "excel": true,
+      "columnVisible": true,
+      "sequenceColumn": 4,
+      "editAttributes": {
+        "stageClassificationEdit": {
+          "type": "select",
+          "options": {
+            "value": {
+              "": "Не выбрано",
+              "pir": "ПИР",
+              "pnr": "ПНР",
+              "smr": "СМР",
+              "others": "Прочие"
+            }
+          }
+        }
+      },
+      "paramCalculateClasses": [
+        "stageClassificationEdit"
+      ],
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": null,
+      "precision": null
+    },
+    "tree": {
+      "name": "Дерево",
+      "search": true,
+      "width": 60,
+      "sortType": "",
+      "sortfunc": "",
+      "classColumn": "columnTree ",
+      "urlRow": "",
+      "columnVisible": true,
+      "sequenceColumn": 2,
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": null,
+      "precision": null
+    },
+    "incomeStage.number": {
+      "name": "Номер",
+      "search": true,
+      "width": 80,
+      "sortType": "",
+      "sortfunc": "",
+      "classColumn": "columnPullLeft autoNumber incomeStageSearch incomeStageSearch ",
+      "urlRow": "",
+      "excel": true,
+      "columnVisible": true,
+      "sequenceColumn": 3,
+      "editAttributes": {
+        "reestrStageEdit": {
+          "type": "text",
+          "options": []
+        },
+        "moveEstimateEdit": {
+          "type": "select",
+          "options": {
+            "value": [],
+            "filterCriteria": {
+              "incomeStageSearch": "without_childs"
+            }
+          }
+        },
+        "stageRemoveEdit": {
+          "type": "select",
+          "options": {
+            "value": [],
+            "filterCriteria": {
+              "incomeStageSearch": "without_childs_self"
+            }
+          }
+        }
+      },
+      "paramCalculateClasses": [
+        "reestrStageEdit",
+        "moveEstimateEdit",
+        "stageRemoveEdit"
+      ],
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": null,
+      "precision": null
+    },
+    "incomeStage.name": {
+      "name": "Наименование",
+      "search": true,
+      "width": 150,
+      "sortType": "",
+      "sortfunc": "",
+      "classColumn": "columnPullLeft ",
+      "urlRow": "",
+      "excel": true,
+      "columnVisible": true,
+      "sequenceColumn": 1,
+      "editAttributes": {
+        "reestrStageEdit": {
+          "type": "text",
+          "options": []
+        }
+      },
+      "paramCalculateClasses": [
+        "reestrStageEdit"
+      ],
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": null,
+      "precision": null
+    },
+    "doc.number": {
+      "name": "РД",
+      "search": true,
+      "width": 40,
+      "sortType": "",
+      "sortfunc": "",
+      "classColumn": "columnPullLeft ",
+      "urlRow": "",
+      "excel": true,
+      "columnVisible": true,
+      "sequenceColumn": 5,
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": null,
+      "precision": null
+    },
+    "estimate.number": {
+      "name": "Смета",
+      "search": true,
+      "width": 40,
+      "sortType": "",
+      "sortfunc": "",
+      "classColumn": "estimate_item_search columnPullLeft ",
+      "urlRow": "",
+      "excel": true,
+      "columnVisible": true,
+      "sequenceColumn": 6,
+      "editAttributes": {
+        "reestrEstimateEdit": {
+          "type": "select",
+          "options": {
+            "value": [],
+            "filterCriteria": {
+              "estimate_item_search": null
+            }
+          }
+        }
+      },
+      "paramCalculateClasses": [
+        "reestrEstimateEdit"
+      ],
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": null,
+      "precision": null
+    },
+    "incomeStage.kind": {
+      "name": "Вид этапа",
+      "search": true,
+      "width": 50,
+      "sortType": "",
+      "sortfunc": "",
+      "classColumn": "columnPullLeft ",
+      "urlRow": "",
+      "excel": true,
+      "columnVisible": true,
+      "sequenceColumn": 7,
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": null,
+      "precision": null
+    }
+  },
+  "reestrTitle": "Структура бюджета",
+  "settings": {
+    "widthKoef": 0.6,
+    "showProjectTitle": true,
+    "numRows": 100000,
+    "numRowsSelect": [
+      100000
+    ],
+    "searchType": "local",
+    "sortable": true,
+    "sortLocal": true,
+    "height": "default",
+    "showSecondWindow": false,
+    "width": "default",
+    "captionClass": "ui_is_last",
+    "multiselectRows": false,
+    "crudUrl": {
+      "read": "/reestr/read/income-budget-bundle_reestr_income-budget_income-budget-reestr",
+      "update": "/reestr/update/income-budget-bundle_reestr_income-budget_income-budget-reestr",
+      "multiUpdate": "/reestr/multiUpdate/income-budget-bundle_reestr_income-budget_income-budget-reestr",
+      "delete": "/reestr/delete/income-budget-bundle_reestr_income-budget_income-budget-reestr",
+      "replace": "/reestr/replace/income-budget-bundle_reestr_income-budget_income-budget-reestr",
+      "updateRows": "/reestr/updateRows/income-budget-bundle_reestr_income-budget_income-budget-reestr"
+    },
+    "isDraggable": true,
+    "searchByKey": 13,
+    "isTree": true,
+    "entity": null,
+    "entityClass": null,
+    "editLevelClasses": [
+      "",
+      "reestrStageEdit",
+      "reestrStageEdit",
+      "reestrStageEdit",
+      "reestrStageEdit",
+      "reestrStageEdit",
+      "reestrStageEdit",
+      "reestrStageEdit",
+      "reestrStageEdit",
+      "reestrStageEdit",
+      "reestrStageEdit",
+      "reestrStageEdit",
+      "reestrStageEdit",
+      "reestrStageEdit",
+      "reestrStageEdit",
+      "reestrStageEdit",
+      "reestrEstimateEdit",
+      "moveEstimateEdit"
+    ],
+    "typeName": "income-budget-bundle_reestr_income-budget_income-budget-reestr",
+    "unlimitedDepthTreeNode": false,
+    "expandedTreeNode": false,
+    "tableRules": [
+      {
+        "class": "reestrStageEdit",
+        "level": [
+          [],
+          []
+        ],
+        "parent": [
+          [
+            "reestrStageEdit"
+          ],
+          []
+        ],
+        "parentHas": [
+          [],
+          []
+        ],
+        "message": "Невозможно добавить этап к смете"
+      },
+      {
+        "class": "reestrStageEdit",
+        "level": [
+          [],
+          [
+            0
+          ]
+        ],
+        "parent": [
+          [],
+          []
+        ],
+        "parentHas": [
+          [],
+          []
+        ],
+        "message": "Невозможно добавить этап в уровень"
+      },
+      {
+        "class": "moveEstimateEdit",
+        "level": [
+          [
+            -1
+          ],
+          []
+        ],
+        "parent": [
+          [],
+          []
+        ],
+        "parentHas": [
+          [],
+          []
+        ],
+        "message": "Переместить можно только смету"
+      },
+      {
+        "class": "reestrEstimateEdit",
+        "level": [
+          [],
+          []
+        ],
+        "parent": [
+          [],
+          [
+            "reestrEstimateEdit"
+          ]
+        ],
+        "parentHas": [
+          [],
+          []
+        ],
+        "message": "Невозможно добавить смету к смете"
+      },
+      {
+        "class": "reestrEstimateEdit",
+        "level": [
+          [
+            -1
+          ],
+          []
+        ],
+        "parent": [
+          [],
+          []
+        ],
+        "parentHas": [
+          [],
+          []
+        ],
+        "message": "Смету можно добавить только в конечный этап"
+      }
+    ],
+    "noFilters": false,
+    "columnsVisibility": [],
+    "gridContextItems": [],
+    "reestrFixedRowSelector": "tbody:first tr[entityclass]:first",
+    "failedReason": null,
+    "treeDefaultState": null
+  },
+  "projectTitle": "Хабаровская ТЭЦ-4 с внеплощадочной инфраструктурой",
+  "contractTitle": "[исх] --- (ID1232) c Хабаровская ТЭЦ-4 с внеплощадочной инфраструктурой"
+}

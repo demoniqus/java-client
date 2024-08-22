@@ -1,0 +1,591 @@
+{
+  "fields": {
+    "tree": {
+      "name": "Дерево",
+      "search": true,
+      "width": 60,
+      "sortType": "",
+      "sortfunc": "",
+      "classColumn": "columnTree ",
+      "urlRow": "",
+      "columnVisible": true,
+      "sequenceColumn": 1,
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": null,
+      "precision": null
+    },
+    "estimate.priority": {
+      "name": "Уровень приоритета",
+      "search": true,
+      "width": 50,
+      "sortType": "",
+      "sortfunc": "",
+      "urlRow": "",
+      "excel": true,
+      "columnVisible": true,
+      "sequenceColumn": 2,
+      "editAttributes": {
+        "estimateItem": {
+          "type": "text",
+          "options": []
+        },
+        "estimateCustomItem": {
+          "type": "text",
+          "options": []
+        }
+      },
+      "paramCalculateClasses": [
+        "estimateItem",
+        "estimateCustomItem"
+      ],
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": null,
+      "precision": null
+    },
+    "estimate.regNumber": {
+      "name": "Вн. номер сметы",
+      "search": true,
+      "width": 180,
+      "sortType": "",
+      "sortfunc": "",
+      "classColumn": "columnPullLeft ",
+      "urlRow": "",
+      "excel": true,
+      "columnVisible": true,
+      "sequenceColumn": 3,
+      "editAttributes": {
+        "estimateItem": {
+          "type": "text",
+          "options": []
+        },
+        "estimateCustomItem": {
+          "type": "text",
+          "options": []
+        }
+      },
+      "paramCalculateClasses": [
+        "estimateItem",
+        "estimateCustomItem"
+      ],
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": null,
+      "precision": null
+    },
+    "estimate.number": {
+      "name": "№ сметы",
+      "search": true,
+      "width": 180,
+      "sortType": "",
+      "sortfunc": "",
+      "classColumn": "estimate_search columnPullLeft ",
+      "urlRow": "",
+      "excel": true,
+      "columnVisible": true,
+      "sequenceColumn": 4,
+      "editAttributes": {
+        "estimateItem": {
+          "type": "select",
+          "options": []
+        },
+        "estimateCustomItem": {
+          "type": "text",
+          "options": []
+        }
+      },
+      "paramCalculateClasses": [
+        "estimateItem",
+        "estimateCustomItem"
+      ],
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": null,
+      "precision": null
+    },
+    "estimate.activity": {
+      "name": "Классификатор",
+      "search": true,
+      "width": 100,
+      "sortType": "",
+      "sortfunc": "",
+      "classColumn": "assignDataClass assignDataClass columnPullLeft ",
+      "urlRow": "",
+      "excel": true,
+      "columnVisible": true,
+      "sequenceColumn": 5,
+      "editAttributes": {
+        "estimateItem": {
+          "type": "select",
+          "options": {
+            "value": {
+              "": "Выберите классификацию",
+              "pir": "ПИР",
+              "pnr": "ПНР",
+              "smr": "СМР",
+              "others": "Прочие"
+            },
+            "filterCriteria": {
+              "assignDataClass": null
+            }
+          }
+        },
+        "estimateCustomItem": {
+          "type": "select",
+          "options": {
+            "value": {
+              "": "Выберите классификацию",
+              "pir": "ПИР",
+              "pnr": "ПНР",
+              "smr": "СМР",
+              "others": "Прочие"
+            },
+            "filterCriteria": {
+              "assignDataClass": null
+            }
+          }
+        }
+      },
+      "paramCalculateClasses": [
+        "estimateItem",
+        "estimateCustomItem",
+        "estimateItem",
+        "estimateCustomItem"
+      ],
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": null,
+      "precision": null
+    },
+    "hasBudgetItems": {
+      "name": "Распределена",
+      "search": true,
+      "width": 50,
+      "sortType": "",
+      "sortfunc": "",
+      "urlRow": "",
+      "excel": true,
+      "columnVisible": true,
+      "sequenceColumn": 6,
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": null,
+      "precision": null
+    },
+    "workDoc.number": {
+      "name": "№ проекта",
+      "search": true,
+      "width": 180,
+      "sortType": "",
+      "sortfunc": "",
+      "classColumn": "columnPullLeft ",
+      "urlRow": "",
+      "excel": true,
+      "columnVisible": true,
+      "sequenceColumn": 7,
+      "editAttributes": {
+        "estimateCustomItem": {
+          "type": "text",
+          "options": []
+        }
+      },
+      "paramCalculateClasses": [
+        "estimateCustomItem"
+      ],
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": null,
+      "precision": null
+    },
+    "workDoc.innerName": {
+      "name": "Вн. наименование работ",
+      "search": true,
+      "width": 320,
+      "sortType": "",
+      "sortfunc": "",
+      "classColumn": "columnPullLeft columnPullLeft ",
+      "urlRow": "",
+      "excel": true,
+      "columnVisible": true,
+      "sequenceColumn": 8,
+      "editAttributes": {
+        "estimateGroup": {
+          "type": "text",
+          "options": []
+        },
+        "estimateCustomItem": {
+          "type": "text",
+          "options": []
+        },
+        "estimateItem": {
+          "type": "text",
+          "options": []
+        }
+      },
+      "paramCalculateClasses": [
+        "estimateGroup",
+        "estimateCustomItem",
+        "estimateItem"
+      ],
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": null,
+      "precision": null
+    },
+    "estimate.bcSum": {
+      "name": "Стоимость БЦ",
+      "search": true,
+      "width": 100,
+      "sortType": "integer",
+      "sortfunc": "",
+      "classColumn": "calcInput int_only_widget columnPullRight moneyInput columnPullRight ",
+      "urlRow": "",
+      "formatCell": true,
+      "excel": true,
+      "columnVisible": true,
+      "sequenceColumn": 9,
+      "editAttributes": {
+        "estimateItem": {
+          "type": "text",
+          "options": []
+        },
+        "estimateCustomItem": {
+          "type": "text",
+          "options": []
+        }
+      },
+      "paramCalculateClasses": [
+        "estimateItem",
+        "estimateCustomItem"
+      ],
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": null,
+      "precision": null
+    },
+    "estimate.sumWoNds": {
+      "name": "Стоимость ТЦ",
+      "search": true,
+      "width": 100,
+      "sortType": "integer",
+      "sortfunc": "",
+      "classColumn": "int_only_widget calcInput columnPullRight moneyInput columnPullRight ",
+      "urlRow": "",
+      "formatCell": true,
+      "excel": true,
+      "columnVisible": true,
+      "sequenceColumn": 10,
+      "editAttributes": {
+        "estimateItem": {
+          "type": "text",
+          "options": []
+        },
+        "estimateCustomItem": {
+          "type": "text",
+          "options": []
+        }
+      },
+      "paramCalculateClasses": [
+        "estimateItem",
+        "estimateCustomItem"
+      ],
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": null,
+      "precision": null
+    },
+    "estimate.sendSignDate": {
+      "name": "Дата отправки на согласование",
+      "search": true,
+      "width": 80,
+      "sortType": "",
+      "sortfunc": "",
+      "classColumn": "datePicker ",
+      "urlRow": "",
+      "excel": true,
+      "columnVisible": true,
+      "sequenceColumn": 11,
+      "editAttributes": {
+        "estimateItem": {
+          "type": "text",
+          "options": []
+        },
+        "estimateCustomItem": {
+          "type": "text",
+          "options": []
+        }
+      },
+      "paramCalculateClasses": [
+        "estimateItem",
+        "estimateCustomItem"
+      ],
+      "filterMap": "_estimate.sendSignDate",
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": "date",
+      "precision": null
+    },
+    "estimate.signDate": {
+      "name": "Дата согласования",
+      "search": true,
+      "width": 80,
+      "sortType": "",
+      "sortfunc": "",
+      "classColumn": "datePicker ",
+      "urlRow": "",
+      "excel": true,
+      "columnVisible": true,
+      "sequenceColumn": 12,
+      "editAttributes": {
+        "estimateItem": {
+          "type": "text",
+          "options": []
+        },
+        "estimateCustomItem": {
+          "type": "text",
+          "options": []
+        }
+      },
+      "paramCalculateClasses": [
+        "estimateItem",
+        "estimateCustomItem"
+      ],
+      "filterMap": "_estimate.signDate",
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": "date",
+      "precision": null
+    },
+    "estimate.note": {
+      "name": "Примечание",
+      "search": true,
+      "width": 200,
+      "sortType": "",
+      "sortfunc": "",
+      "classColumn": "columnPullLeft ",
+      "urlRow": "",
+      "excel": true,
+      "columnVisible": true,
+      "sequenceColumn": 13,
+      "editAttributes": {
+        "estimateItem": {
+          "type": "textarea",
+          "options": []
+        },
+        "estimateCustomItem": {
+          "type": "textarea",
+          "options": []
+        }
+      },
+      "paramCalculateClasses": [
+        "estimateItem",
+        "estimateCustomItem"
+      ],
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": null,
+      "precision": null
+    },
+    "estimate.comment": {
+      "name": "Задания Комментарии АО ИТЭ",
+      "search": true,
+      "width": 150,
+      "sortType": "",
+      "sortfunc": "",
+      "classColumn": "columnPullLeft ",
+      "urlRow": "",
+      "excel": true,
+      "columnVisible": true,
+      "sequenceColumn": 14,
+      "editAttributes": {
+        "estimateItem": {
+          "type": "textarea",
+          "options": []
+        },
+        "estimateCustomItem": {
+          "type": "textarea",
+          "options": []
+        }
+      },
+      "paramCalculateClasses": [
+        "estimateItem",
+        "estimateCustomItem"
+      ],
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": null,
+      "precision": null
+    },
+    "contragent.name": {
+      "name": "ПО",
+      "search": true,
+      "width": 40,
+      "sortType": "",
+      "sortfunc": "",
+      "classColumn": "columnPullLeft ",
+      "urlRow": "",
+      "excel": true,
+      "columnVisible": true,
+      "sequenceColumn": 15,
+      "falseEqValueReplace": false,
+      "falseEqValueReplacement": "",
+      "editedValuePreparer": null,
+      "columnDataType": null,
+      "precision": null
+    }
+  },
+  "reestrTitle": "Реестр Смет",
+  "settings": {
+    "widthKoef": 0.8,
+    "showProjectTitle": true,
+    "numRows": 10000,
+    "numRowsSelect": [
+      10000
+    ],
+    "searchType": "local",
+    "sortable": true,
+    "sortLocal": true,
+    "height": "default",
+    "showSecondWindow": false,
+    "width": "default",
+    "captionClass": "ui_is_last",
+    "multiselectRows": false,
+    "crudUrl": {
+      "read": "/reestr/read/estimate_customer",
+      "update": "/reestr/update/estimate_customer",
+      "multiUpdate": "/reestr/multiUpdate/estimate_customer",
+      "delete": "/reestr/delete/estimate_customer",
+      "replace": "/reestr/replace/estimate_customer",
+      "updateRows": "/reestr/updateRows/estimate_customer"
+    },
+    "isDraggable": true,
+    "searchByKey": 13,
+    "isTree": true,
+    "entity": null,
+    "entityClass": null,
+    "editLevelClasses": [
+      "estimateGroup",
+      "estimateItem",
+      "estimateItem",
+      "estimateCustomItem"
+    ],
+    "typeName": "estimate_customer",
+    "unlimitedDepthTreeNode": false,
+    "expandedTreeNode": true,
+    "tableRules": [
+      {
+        "class": "estimateGroup",
+        "level": [
+          [
+            0
+          ],
+          []
+        ],
+        "parent": [
+          [],
+          []
+        ],
+        "parentHas": [
+          [],
+          []
+        ],
+        "message": "Группу можно добавить только на корневой уровень"
+      },
+      {
+        "class": "estimateItem",
+        "level": [
+          [],
+          []
+        ],
+        "parent": [
+          [],
+          [
+            "estimateItem"
+          ]
+        ],
+        "parentHas": [
+          [],
+          []
+        ],
+        "message": "Нельзя добавить смету к смете"
+      },
+      {
+        "class": "estimateItem",
+        "level": [
+          [],
+          []
+        ],
+        "parent": [
+          [],
+          [
+            "estimateCustomItem"
+          ]
+        ],
+        "parentHas": [
+          [],
+          []
+        ],
+        "message": "Нельзя добавить смету к смете"
+      },
+      {
+        "class": "estimateCustomItem",
+        "level": [
+          [],
+          []
+        ],
+        "parent": [
+          [],
+          [
+            "estimateItem"
+          ]
+        ],
+        "parentHas": [
+          [],
+          []
+        ],
+        "message": "Нельзя добавить смету к смете"
+      },
+      {
+        "class": "estimateCustomItem",
+        "level": [
+          [],
+          []
+        ],
+        "parent": [
+          [],
+          [
+            "estimateCustomItem"
+          ]
+        ],
+        "parentHas": [
+          [],
+          []
+        ],
+        "message": "Нельзя добавить смету к смете"
+      }
+    ],
+    "noFilters": false,
+    "columnsVisibility": [],
+    "gridContextItems": [],
+    "reestrFixedRowSelector": null,
+    "failedReason": null,
+    "treeDefaultState": null
+  },
+  "projectTitle": "Хабаровская ТЭЦ-4 с внеплощадочной инфраструктурой",
+  "contractTitle": "[исх] --- (ID1232) c Хабаровская ТЭЦ-4 с внеплощадочной инфраструктурой"
+}
