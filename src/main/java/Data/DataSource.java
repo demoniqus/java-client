@@ -1,9 +1,9 @@
 package Data;
 
-import AuthenticationManager.Authentication.ContAuthentication;
+import Data.Visualizer.TreeGridDataVisualizer;
 import Interfaces.*;
 import app.Main;
-import org.apache.commons.logging.Log;
+import jdk.jfr.Description;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.impl.Jdk14Logger;
 import org.apache.http.Header;
@@ -14,11 +14,9 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.cookie.ClientCookie;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.impl.conn.DefaultManagedHttpClientConnection;
 import org.apache.http.impl.cookie.BasicClientCookie;
@@ -27,11 +25,12 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.jabricks.widgets.renderers.FloatRenderer;
 import org.jabricks.widgets.treetable.JTreeTable;
+import org.jabricks.widgets.treetable.ObjectModel;
+import org.jabricks.widgets.treetable.ObjectNode;
 import org.jabricks.widgets.treetable.TreeTableModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileReader;
 import java.io.IOException;
 
 import java.net.URI;
@@ -46,6 +45,7 @@ import com.google.gson.*;
 
 import static org.apache.http.client.protocol.HttpClientContext.COOKIE_STORE;
 
+@Description("Источник данных")
 final public class DataSource implements IDataSource {
     final private String title;
     final private String modelUrl;
@@ -70,33 +70,27 @@ final public class DataSource implements IDataSource {
 
     public void load(JPanel workPanel)
     {
-        org.jabricks.widgets.treetable.ObjectModel.setSignificantFields("name", "leaf");
+        IClearContainer.clearContainer(workPanel);
 
+        /*
+         * Получаем модель данных
+         */
+        IDataModelManager dataModelManager = (IDataModelManager) Main.ServiceContainer().GetService(IDataModelManager.class);
+        Map<String, Object> params = new HashMap<>();
+        params.put("modelName", modelUrl );
+        IDataModel dataModel = dataModelManager.getModel(params);
 
-        List<IDataModelItem> dataModel = getModel();
-        int[] width = new int[dataModel.size()];
-        int counter = 0;
-        for (IDataModelItem dataModelItem : dataModel) {
-            width[counter++] = dataModelItem.getWidth();
-        }
+        /*
+         * Получаем и адаптируем данные
+         */
+        JTreeTableDataManager jtm = new JTreeTableDataManager();
+        List<IDataItem> dataItems = jtm.loadData(params, dataModel);
 
-        TreeTableModel model = new DataModel(getModel());
-        JTreeTable treeTable = new JTreeTable(model);
-
-        treeTable.setColumnsWidth(width);
-
-        treeTable.setRowHeight(22);
-
-        treeTable.setDefaultRenderer(Float.class, new FloatRenderer());
-        treeTable.setAutoResizeColumn (JTable.AUTO_RESIZE_ALL_COLUMNS);
-
-        JScrollPane jsp = new JScrollPane(treeTable);
-        jsp.setBackground(Color.decode("0xff00ff"));
-        workPanel.add(jsp, BorderLayout.CENTER);
-        treeTable.drawTableHeaderRaised();
-        treeTable.updateUI();
-//        loadData();
-
+        /*
+         * Выводим данные в окно
+         */
+        ITreeGridDataVisualizer dataVisualizer = (ITreeGridDataVisualizer)Main.ServiceContainer().GetService(ITreeGridDataVisualizer.class);
+        dataVisualizer.visualize(workPanel, dataModel, dataItems, params);
     }
 
     private void loadData_new()
@@ -355,7 +349,7 @@ final public class DataSource implements IDataSource {
 
             Gson gson = new Gson();
             String lp = System.getProperty("user.dir");
-            Path p = Path.of(lp + "/src/main/resources/json/budget/habarovsk/headers.json");
+            Path p = Path.of(lp + "/src/main/resources/json/" + this.modelUrl + "/habarovsk/headers.json");
             String s = Files.readString(p);
 
             o = gson.fromJson(s, JsonObject.class);
