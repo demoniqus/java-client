@@ -1,8 +1,8 @@
 package Interfaces;
 
 public interface IDataModelItem {
-    Class<?>getClassName();
-    String getName();
+    Class<?> Type();
+    String Name();
     String getTitle();
     IDataModelItem setTitle(String title);
     int getWidth();

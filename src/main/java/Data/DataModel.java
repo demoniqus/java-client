@@ -1,127 +1,117 @@
 package Data;
 
+import Interfaces.IDataModel;
 import Interfaces.IDataModelItem;
-import org.jabricks.widgets.treetable.AbstractTreeTableModel;
-import org.jabricks.widgets.treetable.ObjectNode;
-import org.jabricks.widgets.treetable.ObjectRecord;
+import jdk.jfr.Description;
 
-import java.lang.reflect.Field;
-import java.util.List;
+import java.util.*;
 
-public class DataModel extends AbstractTreeTableModel {
-
-    private List<IDataModelItem> items;
-
-    public DataModel() {super((Object)null);}
-    public DataModel(List<IDataModelItem> items) {
-        super((Object)null);
-        this.items = items;
+@Description("Модель данных из источника")
+public class DataModel implements IDataModel {
+    private Map<String, IDataModelItem> map = new HashMap<>();
+    private List<IDataModelItem> list = new ArrayList<>();
+    @Override
+    public int size() {
+        return map.size();
     }
 
-    public int getColumnCount() {
-        return items.size();
+    @Override
+    public boolean isEmpty() {
+        return map.isEmpty();
     }
 
-    public String getColumnName(int column) {
-        return items.get(column).getTitle();
+    @Override
+    public boolean containsKey(Object key) {
+        checkKeyType(key);
+        return map.containsKey(key);
     }
 
-    public Class<?> getColumnClass(int column) {
-        return items.get(column).getClass();
+    @Override
+    public boolean containsValue(Object value) {
+        checkValueType(value);
+        return list.contains(value);
     }
 
-    public boolean isLeaf(Object node) {
-        return ((ObjectNode)node).isLeaf();
-    }
-
-    public String getColumnTitle(int column) {
-        return items.get(column).getTitle();
-    }
-
-    public void setRootNode(ObjectNode root) {
-        this.root = root;
-    }
-
-    private Object getValue(String fldName, Object object) {
-        Object value = null;
-
-        try {
-            Field field = object.getClass().getDeclaredField(fldName);
-            field.setAccessible(true);
-            value = field.get(object);
-        } catch (IllegalAccessException | NoSuchFieldException var5) {
+    @Override
+    public Object get(Object key) {
+        if (key instanceof String) {
+            return map.get(key);
+        } else if (key instanceof Integer) {
+            return list.get((Integer) key);
         }
-
-        return value;
+        throw new ClassCastException("Key has incorrect type");
     }
 
-    public Object getValueAt(Object node, int column) {
-        if (this.items == null) {
-            return null;
-        } else {
-            Object obj = this.getValue(this.items.get(column).getName(), ((ObjectNode)node).getRecord());
-            return obj;
+    @Override
+    public Object put(Object key, Object value) {
+        checkKeyType(key);
+        if (!(map.containsKey(key))) {
+            map.put((String) key, (IDataModelItem) value);
+            list.add((IDataModelItem) value);
         }
-    }
-    public Object getChild(Object node, int i) {
-        return this.getChildren(node)[i];
+        return null;
     }
 
-    private Object[] getChildren(Object node) {
-        return ((ObjectNode)node).getChildren();
-    }
-
-    public int getChildCount(Object node) {
-        Object[] children = this.getChildren(node);
-        return children == null ? 0 : children.length;
-    }
-
-    private static void convertRecord2Node(ObjectNode node) {
-        ObjectRecord record = (ObjectRecord)node.getRecord();
-        if (record.getChildren() != null) {
-            node.setChildren(new ObjectNode[record.getChildren().size()]);
-            if (record.getChildren().size() > 0) {
-                for(int i = 0; i < record.getChildren().size(); ++i) {
-                    ObjectRecord child = (ObjectRecord)record.getChildren().get(i);
-                    ObjectNode obj_node = new ObjectNode(child);
-                    obj_node.setChildren(new ObjectNode[0]);
-                    obj_node.setParent(node);
-                    node.getChildren()[i] = obj_node;
-                    if (child.getChildren().size() > 0) {
-                        obj_node.setChildren(new ObjectNode[child.getChildren().size()]);
-
-                        for(int j = 0; j < child.getChildren().size(); ++j) {
-                            ObjectRecord descendant = (ObjectRecord)child.getChildren().get(j);
-                            ObjectNode onode = new ObjectNode(descendant);
-                            onode.setChildren(new ObjectNode[0]);
-                            onode.setParent(obj_node);
-                            obj_node.getChildren()[j] = onode;
-                            convertRecord2Node(onode);
-                        }
-                    }
+    @Override
+    public Object remove(Object key) {
+        checkKeyType(key);
+        IDataModelItem item = null;
+        if ((map.containsKey(key))) {
+            item = map.remove(key);
+            int index;
+            for (index = 0; index < list.size(); index++) {
+                if (list.get(index) == item) {
+                    break;
                 }
             }
+            list.remove(index);
         }
-
+        return null;
     }
 
-    public static void setSignificantFields(String fieldName, String fieldLeaf) {
-        ObjectNode.setSignificantFields(fieldName, fieldLeaf);
+    @Override
+    public void putAll(Map m) {
+        throw new UnsupportedOperationException();
     }
 
-    public static ObjectNode convertRecord2Node(ObjectRecord record) {
-        ObjectNode main = new ObjectNode(record);
-        main.setChildren(new ObjectNode[record.getChildren().size()]);
+    @Override
+    public void clear() {
+        list.clear();
+        map.clear();
+    }
 
-        for(int i = 0; i < record.getChildren().size(); ++i) {
-            ObjectNode obj_node = new ObjectNode(record.getChildren().get(i));
-            obj_node.setChildren(new ObjectNode[0]);
-            obj_node.setParent(main);
-            main.getChildren()[i] = obj_node;
-            convertRecord2Node(obj_node);
+    @Override
+    public Set keySet() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Collection values() {
+        //clone
+        return list.stream().toList();
+    }
+
+    @Override
+    public Set<Entry> entrySet() {
+        throw new UnsupportedOperationException();
+    }
+
+    public List<IDataModelItem> getList() {
+        //clone
+        return list.stream().toList();
+    }
+
+
+
+    private void checkKeyType(Object key) {
+        if (!(key instanceof String)) {
+            throw new ClassCastException("Key must be type of String");
         }
-
-        return main;
     }
 
+    private void checkValueType(Object value) {
+        if (!(value instanceof IDataModelItem)) {
+            throw new ClassCastException("Value must be type of IDataModelItem");
+        }
+    }
 }

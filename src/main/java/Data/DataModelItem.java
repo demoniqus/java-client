@@ -1,19 +1,26 @@
 package Data;
 
 import Interfaces.IDataModelItem;
+import jdk.jfr.Description;
 
+@Description("Элемент модели данных из источника")
 public class DataModelItem implements IDataModelItem {
     private String name;
     private Class<?> className;
     private String title;
     private int width = 50;
-    public DataModelItem(Class<?> className, String name, String title) {
+
+    public DataModelItem(
+            Class<?> className,
+            String name,
+            String title
+    ) {
         this.className = className;
         this.name = name;
         this.title = title;
     }
     @Override
-    public String getName() {
+    public String Name() {
         return name;
     }
 
@@ -38,8 +45,10 @@ public class DataModelItem implements IDataModelItem {
         this.width = width;
         return this;
     }
+
+
     @Override
-    public Class<?> getClassName() {
+    public Class<?> Type() {
         return className;
     }
 }
