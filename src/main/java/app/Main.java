@@ -1,6 +1,11 @@
 package app;
+import AdaptersManager.AdaptersManager;
 import AuthenticationManager.ContAuthenticationManager;
+import Data.Adapter.JabricsTreeGridDataAdapter;
+import Data.Model.Managers.TestDataModelsManager;
 import Data.DataServer.DataServerManager;
+import Data.Visualizer.TreeGridDataVisualizer;
+import Data.Model.Adapters.JabricsTreeGridModelAdapter;
 import EventDispatcher.EventDispatcher;
 import Interfaces.*;
 import ServiceProvider.ServiceContainer;
@@ -8,27 +13,24 @@ import ConfigParser.*;
 import User.User;
 import Workarea.WorkareaManager;
 import Workarea.Areas.*;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.fasterxml.jackson.dataformat.yaml.YAMLParser;
 import jdk.jfr.Description;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Stack;
 import java.util.List;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+/*
+Правила именования методов
+lock, adapt - со строчной называется метод-действие, основным назначением которого является выполнение какого-либо действия.
+    Например, lock - заблокировать объект от изменений, adapt - выполнить адаптацию данных, после чего вернуть результат
+Field, Fields - с прописной называется метод, основным назначением которого является доступ к непереназначаемому объекту
+    или набору объектов (нет публичного setter'а)
+getTitle, setTitle - Getter + Setter - основное назначение метода - доступ и переназначение объекта
+ */
 public class Main {
     /**
      * В приложении работает конкретный пользователь.
@@ -78,7 +80,7 @@ public class Main {
         registerServices();
         registerServiceComponents();
 
-        ((ServiceContainer)serviceContainer).Lock();
+        ((ILocked)serviceContainer).lock();
     }
 
     private static void registerParameters()
@@ -100,10 +102,22 @@ public class Main {
     private static void registerServices()
     {
         List<Map<String, Object>> dataServersConfig = serviceContainer.getParameter("dataServers");
+        //Менеджер рабочих пространств
         ((ServiceContainer)serviceContainer).AddService(IWorkareaManager.class, new WorkareaManager());
+        //Диспетчер событий
         ((ServiceContainer)serviceContainer).AddService(IEventDispatcher.class, new EventDispatcher());
+        //Менеджер данных. TODO Заменить на реальный менеджер данных
+        ((ServiceContainer)serviceContainer).AddService(IDataModelManager.class, new TestDataModelsManager());
+        //Менеджер аутентификации на серверах Cont
         ((ServiceContainer)serviceContainer).AddService(ContAuthenticationManager.class, new ContAuthenticationManager());
+        //Менеджер серверов данных
         ((ServiceContainer)serviceContainer).AddService(IDataServerManager.class, new DataServerManager(dataServersConfig));
+        //Визуализатор древесных данных
+        ((ServiceContainer)serviceContainer).AddService(ITreeGridDataVisualizer.class, new TreeGridDataVisualizer());
+        //Менеджер адаптеров
+        ((ServiceContainer)serviceContainer).AddService(IAdaptersManager.class, new AdaptersManager());
+
+
 
     }
 
@@ -113,6 +127,7 @@ public class Main {
     {
         registerWorkareas();
         registerDataServers();
+        registerAdapters();
 
     }
     @Description("Регистрация рабочих пространств")
@@ -136,6 +151,33 @@ public class Main {
 //        dataServerManager.addServer(server.getName(), server);
 //
         dataServerManager.lock();
+    }
+    @Description("Регистрация источников данных")
+    private static void registerAdapters(){
+        //TODO Переделать сюда загрузку из конфига ???
+        AdaptersManager adaptersManager = (AdaptersManager) serviceContainer.GetService(IAdaptersManager.class);
+        //Jabrics-компоненты отображения данных
+        adaptersManager.addAdapter(
+                IDataModelAdapter.class,
+                TreeGridDataVisualizer.class,
+                new JabricsTreeGridModelAdapter()
+        );
+        adaptersManager.addAdapter(
+                IDataAdapter.class,
+                TreeGridDataVisualizer.class,
+                new JabricsTreeGridDataAdapter()
+        );
+
+//        IDataServer server = new DebugContDataServer();
+//        dataServerManager.addServer(server.getName(), server);
+//
+//        server = new TestContDataServer();
+//        dataServerManager.addServer(server.getName(), server);
+//
+//        server = new ContProdDataServer();
+//        dataServerManager.addServer(server.getName(), server);
+//
+        adaptersManager.lock();
     }
 
 
