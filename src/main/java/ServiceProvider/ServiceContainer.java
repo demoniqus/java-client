@@ -1,10 +1,11 @@
 package ServiceProvider;
 
 import Interfaces.IContainer;
+import Interfaces.ILocked;
 
 import java.util.*;
 
-public class ServiceContainer implements IContainer {
+public class ServiceContainer implements IContainer, ILocked {
     private static IContainer instance;
     private Map<String, Object> servicesByAlias = new HashMap<>();
     private Map<Class<?>, Object> servicesByClass = new HashMap<>();
@@ -82,14 +83,14 @@ public class ServiceContainer implements IContainer {
         return this;
     }
 
-    public void Lock()
+    public void lock()
     {
         locked = true;
     }
 
     private void throwIfLocked() {
         if (locked) {
-            throw new RuntimeException("ServiceProvides is locked for adding service");
+            throwException();
         }
     }
 

@@ -8,7 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class DataServerManager implements IDataServerManager {
-    private Boolean _lock = false;
+    private Boolean locked = false;
     private HashMap<String, IDataServer> dataServers = new HashMap<>();
     private IDataServer activeDataServer = null;
 
@@ -38,13 +38,13 @@ public class DataServerManager implements IDataServerManager {
 
     public void lock()
     {
-        _lock = true;
+        locked = true;
     }
 
     public IDataServerManager addServer(String alias, IDataServer dataServer)
     {
-        if (_lock) {
-            throw new RuntimeException("DataServerManager is locked");
+        if (locked) {
+            throwException();
         }
         dataServers.put(alias, dataServer);
 
