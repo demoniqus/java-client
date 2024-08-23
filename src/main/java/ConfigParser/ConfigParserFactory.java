@@ -13,7 +13,7 @@ public class ConfigParserFactory implements IConfigParserFactory {
     Map<String, IConfigParser> parsers = new HashMap<String, IConfigParser>();
     public ConfigParserFactory(){
         /**
-         * Парсер конфигов пока используется перед инициализацией сервисов. Поэтому
+         * Парсер конфигов пока используется перед инициализацией сервисов. Поэтому парсеры не достаем из контейнера
          */
         parsers.put(IConfigParserModel.YAML, new YamlConfigParser());
 

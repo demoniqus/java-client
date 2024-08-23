@@ -20,13 +20,4 @@ public abstract class AbstractArea implements IWorkarea {
     protected void init(){
         //Дополнительная инициализация контейнера
     }
-
-    protected void clearContainer(Container container) {
-        if (container instanceof JFrame) {
-            ((JFrame)container).getContentPane().removeAll();
-        }
-        else {
-            container.removeAll();
-        }
-    }
 }

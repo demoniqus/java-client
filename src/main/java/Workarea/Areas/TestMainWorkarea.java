@@ -1,5 +1,7 @@
 package Workarea.Areas;
 
+import Interfaces.IClearContainer;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Dictionary;
@@ -19,7 +21,7 @@ public class TestMainWorkarea extends AbstractArea {
     private Container container;
     @Override
     public Boolean open(Container container) {
-        clearContainer(container);
+        IClearContainer.clearContainer(container);
 
         this.container = container;
 

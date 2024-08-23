@@ -32,7 +32,7 @@ public class AuthenticationWorkarea extends AbstractArea {
 
     @Override
     public Boolean open(Container container) {
-        clearContainer(container);
+        IClearContainer.clearContainer(container);
 
         this.container = container;
 

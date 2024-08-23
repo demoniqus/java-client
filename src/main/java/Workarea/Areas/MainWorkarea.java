@@ -1,5 +1,6 @@
 package Workarea.Areas;
 
+import Interfaces.IClearContainer;
 import Interfaces.IEventDispatcher;
 import Interfaces.IEventModel;
 import Interfaces.IMainWorkarea;
@@ -35,9 +36,13 @@ public class MainWorkarea extends AbstractArea implements IMainWorkarea {
     private Container container;
     @Override
     public Boolean open(Container container) {
-        clearContainer(container);
+        IClearContainer.clearContainer(container);
         this.container = container;
         container.add(mainPanel, BorderLayout.CENTER);
+        /*
+        Конфигурируем рабочее пространство в соответствии с выбранным сервером данных -
+        создаем меню, рабочие панели и пр.
+         */
         Main.DataServer().configureWorkarea(this);
 
 //        JLabel l = new JLabel("243254355465756");
@@ -131,37 +136,6 @@ public class MainWorkarea extends AbstractArea implements IMainWorkarea {
         return mainGridPanel;
     }
 
-    private void createTreeTable(JPanel mainGridPanel){
-
-
-
-        //org.jabricks.widgets.treetable.ObjectModel.setSignificantFields("name", "leaf");
-        String[] titles = {"Id", "Name", "Number"};
-        String[] names = {"id", "name", "number"};
-        Class<?>[] types = {TreeTableModel.class, String.class, String.class/*, Integer.class*/};
-        int        cols_width[]  = {350, 110, 120};
-        JTreeTable treeTable = new JTreeTable(new ObjectModel(names, titles, types));
-
-        treeTable.setColumnsWidth(cols_width);
-        treeTable.setRowHeight(22);
-
-        treeTable.setDefaultRenderer(Float.class, new FloatRenderer());
-        treeTable.setAutoResizeColumn (JTable.AUTO_RESIZE_OFF);
-
-
-
-        //mainGridPanel.add(treeTable, BorderLayout.CENTER);
-//        JLabel l = new JLabel("swfdefdgsfdsfs");;
-        JScrollPane jsp = new JScrollPane(treeTable);
-        jsp.setBackground(Color.decode("0xff5555"));
-
-        mainGridPanel.add(jsp, BorderLayout.CENTER);
-        treeTable.drawTableHeaderRaised();
-        treeTable.updateUI();
-
-    }
-
-
     @Override
     protected void init() {
 
@@ -193,143 +167,5 @@ public class MainWorkarea extends AbstractArea implements IMainWorkarea {
     @Override
     public JPanel getWorkPanel() {
         return mainWorkPanel;
-    }
-}
-class ObjectModel extends AbstractTreeTableModel
-{
-    private String[] column_titles = null;
-    private String[] column_names = null;
-    private Class<?>[] column_types = null;
-    public ObjectModel(){
-        super((Object) null);
-    }
-    public ObjectModel(
-        String[] col_names,
-        String[] col_titles,
-        Class<?>[] col_types
-    )
-    {
-        super((Object) null);
-
-        this.column_titles = col_titles;
-        this.column_names = col_names;
-        this.column_types = col_types;
-
-    }
-
-    public void setColumnTitles(String[] col_titles) {
-
-        this.column_titles = col_titles;
-    }
-
-    public String getColumnTitle(int column) {
-
-        return this.column_titles[column];
-    }
-
-    public void setRootNode(ObjectNode root) {
-        this.root = root;
-    }
-
-    public int getColumnCount() {
-
-        return this.column_titles == null ? 0 : this.column_names.length;
-    }
-
-    public String getColumnName(int column) {
-
-        return this.column_titles == null ? null : this.column_titles[column];
-    }
-
-    public Class<?> getColumnClass(int column) {
-
-        return this.column_types[column];
-    }
-
-    public boolean isLeaf(Object node) {
-        return ((ObjectNode)node).isLeaf();
-    }
-
-    private Object getValue(String fldName, Object object) {
-        Object value = null;
-
-        try {
-            Field field = object.getClass().getDeclaredField(fldName);
-            field.setAccessible(true);
-            value = field.get(object);
-        } catch (IllegalAccessException | NoSuchFieldException var5) {
-        }
-
-        return value;
-    }
-
-    public Object getValueAt(Object node, int column) {
-        if (this.column_names == null) {
-            return null;
-        } else {
-            Object obj = this.getValue(this.column_names[column], ((ObjectNode)node).getRecord());
-            return obj;
-        }
-    }
-
-    public Object getChild(Object node, int i) {
-        return this.getChildren(node)[i];
-    }
-
-    private Object[] getChildren(Object node) {
-        return ((ObjectNode)node).getChildren();
-    }
-
-    public int getChildCount(Object node) {
-        Object[] children = this.getChildren(node);
-        return children == null ? 0 : children.length;
-    }
-
-    private static void convertRecord2Node(ObjectNode node) {
-        ObjectRecord record = (ObjectRecord)node.getRecord();
-        if (record.getChildren() != null) {
-            node.setChildren(new ObjectNode[record.getChildren().size()]);
-            if (record.getChildren().size() > 0) {
-                for(int i = 0; i < record.getChildren().size(); ++i) {
-                    ObjectRecord child = (ObjectRecord)record.getChildren().get(i);
-                    ObjectNode obj_node = new ObjectNode(child);
-                    obj_node.setChildren(new ObjectNode[0]);
-                    obj_node.setParent(node);
-                    node.getChildren()[i] = obj_node;
-                    if (child.getChildren().size() > 0) {
-                        obj_node.setChildren(new ObjectNode[child.getChildren().size()]);
-
-                        for(int j = 0; j < child.getChildren().size(); ++j) {
-                            ObjectRecord descendant = (ObjectRecord)child.getChildren().get(j);
-                            ObjectNode onode = new ObjectNode(descendant);
-                            onode.setChildren(new ObjectNode[0]);
-                            onode.setParent(obj_node);
-                            obj_node.getChildren()[j] = onode;
-                            convertRecord2Node(onode);
-                        }
-                    }
-                }
-            }
-        }
-
-    }
-
-    public static void setSignificantFields(String fieldName, String fieldLeaf) {
-        ObjectNode.setSignificantFields(fieldName, fieldLeaf);
-    }
-
-    public static ObjectNode convertRecord2Node(ObjectRecord record) {
-        ObjectNode main = new ObjectNode(record);
-        main.setChildren(new ObjectNode[record.getChildren().size()]);
-
-        for(int i = 0; i < record.getChildren().size(); ++i) {
-            ObjectNode obj_node = new ObjectNode(record.getChildren().get(i));
-            obj_node.setChildren(new ObjectNode[0]);
-            obj_node.setParent(main);
-            main.getChildren()[i] = obj_node;
-            convertRecord2Node(obj_node);
-        }
-
-        return main;
     }
 }
